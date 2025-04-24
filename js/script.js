@@ -13,3 +13,9 @@ const GameBoard = (function () {
 
   return { getBoard, updateBoard };
 })();
+
+// Player Factory for creating players with the player name & player marker.
+
+const Player = (name, marker) => {
+  return { name, marker };
+};
