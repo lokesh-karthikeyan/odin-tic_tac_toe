@@ -78,3 +78,28 @@ const hasWinner = (board) => {
 
   return false;
 };
+
+// Game tied logic, when all spots are filled & no winner.
+
+const isTied = (board) =>
+  board.filter((value) => value).length === board.length;
+
+// Game Over logic, checks if the game has a winner (or) it's a tie.
+
+const GameStatus = (function () {
+  const isGameOver = (board, marker) => {
+    let roundWon = hasWinner(board);
+    let roundTied = !roundWon && isTied(board);
+
+    if (roundWon) return marker;
+    if (roundTied) return "";
+
+    return false;
+  };
+
+  PubSub.subscribe("boardUpdated", ({ board, marker }) =>
+    isGameOver(board, marker),
+  );
+
+  return { isGameOver };
+})();
