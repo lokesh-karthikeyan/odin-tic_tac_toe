@@ -15,7 +15,13 @@ const GameBoard = (function () {
 
 // Player Factory for creating players with the player name & player marker.
 
-const Player = (name, marker) => ({ name, marker });
+const player = (name, marker) => ({
+  name,
+  marker,
+  changeName(newName) {
+    this.name = newName;
+  },
+});
 
 // Publish/Subscribe pattern during board updates.
 
@@ -101,3 +107,5 @@ const GameStatus = (function () {
 
   return {};
 })();
+
+// Player Manager which wraps all player related methods.
