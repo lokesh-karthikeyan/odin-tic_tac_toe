@@ -50,3 +50,31 @@ const Placement = (function () {
 
   return { isValid };
 })();
+
+// Game has a Winner logic, when the 'X' (or) 'O' is aligned.
+
+const hasWinner = (board) => {
+  const winningPositions = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+
+  for (const position of winningPositions) {
+    const [positionX, positionY, positionZ] = position;
+    const [valueX, valueY, valueZ] = [
+      board[positionX],
+      board[positionY],
+      board[positionZ],
+    ];
+
+    if (valueX !== "" && valueX === valueY && valueX === valueZ) return valueX;
+  }
+
+  return false;
+};
