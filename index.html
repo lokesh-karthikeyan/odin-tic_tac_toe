@@ -9,11 +9,57 @@
   </head>
   <body>
     <header class="site-header">
-      <div class="container">
+      <div class="container site-header__container">
         <h1 class="site-header__title">Tic Tac Toe</h1>
       </div>
     </header>
-    <main class="main-content"></main>
+    <main class="main-content">
+      <div class="container main-content__score-container">
+        <div class="main-content__player">
+          <div class="main-content__marker-container">
+            <h2 class="main-content__marker">X</h2>
+          </div>
+          <div class="main-content__player-details-container">
+            <div class="main-content__player-name-container">
+              <p class="main-content__player-name"></p>
+              <input type="text" class="is-active">
+              <a href="#" class="main-content__icon">&#9998;</a>
+            </div>
+            <div class="main-content__player-score-container">
+              <p class="main-content__player-score"></p>
+            </div>
+          </div>
+        </div>
+        <div class="main-content__player">
+          <div class="main-content__player-details-container">
+            <div class="main-content__player-name-container">
+              <p class="main-content__player-name"></p>
+              <input type="text" class="is-active">
+              <a href="#" class="main-content__icon">&#9998;</a>
+            </div>
+            <div class="main-content__player-score-container">
+              <p class="main-content__player-score"></p>
+            </div>
+          </div>
+          <div class="main-content__marker-container">
+            <h2 class="main-content__marker">O</h2>
+          </div>
+        </div>
+      </div>
+      <div class="container main-content__tile-container">
+        <div class="main-content__buttons">
+          <button class="button tile"></button>
+          <button class="button tile"></button>
+          <button class="button tile"></button>
+          <button class="button tile"></button>
+          <button class="button tile"></button>
+          <button class="button tile"></button>
+          <button class="button tile"></button>
+          <button class="button tile"></button>
+          <button class="button tile"></button>
+        </div>
+      </div>
+    </main>
     <footer class="site-footer">
       <div class="container">
         <p class="site-footer__content">Made by Loki</p>
