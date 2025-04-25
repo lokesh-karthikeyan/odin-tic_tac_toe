@@ -109,3 +109,33 @@ const GameStatus = (function () {
 })();
 
 // Player Manager which wraps all player related methods.
+
+const playerManager = () => {
+  const players = [];
+  let currentPlayer = null;
+  let winnerPlayer = null;
+
+  const createPlayer = (name, marker) => {
+    if (players.length > 2) return;
+
+    let newPlayer = player(name, marker);
+    players.push(newPlayer);
+    if (!currentPlayer) currentPlayer = newPlayer;
+    return newPlayer;
+  };
+
+  const getCurrentPlayer = () => currentPlayer;
+
+  const switchPlayers = () =>
+    (currentPlayer = currentPlayer === players[0] ? players[1] : players[0]);
+
+  const getWinnerPlayer = () => winnerPlayer;
+
+  PubSub.subscribe("gameOver", (marker) => {
+    winnerPlayer = marker
+      ? players.find((player) => player.marker === marker)
+      : "";
+  });
+
+  return { createPlayer, getCurrentPlayer, switchPlayers, getWinnerPlayer };
+};
