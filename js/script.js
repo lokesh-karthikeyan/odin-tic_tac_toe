@@ -19,3 +19,23 @@ const GameBoard = (function () {
 const Player = (name, marker) => {
   return { name, marker };
 };
+
+// Placement logic of the current marker, and index.
+
+const Placement = (function () {
+  let previousMarker = "";
+
+  const isValidIndex = (board, index) => {
+    return board[index] === "";
+  };
+
+  const isValidMarker = (currentMarker) => {
+    return currentMarker !== previousMarker;
+  };
+
+  const isValid = (index, marker, board) => {
+    return isValidIndex(board, index) && isValidMarker(marker);
+  };
+
+  return { isValid };
+})();
