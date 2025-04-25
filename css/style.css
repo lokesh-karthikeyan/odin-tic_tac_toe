@@ -49,7 +49,7 @@
   font-style: normal;
 }
 
-/* GLOBAL VARIABLES */
+/* === GLOBAL VARIABLES === */
 
 :root {
   --system-ui:
@@ -65,8 +65,62 @@
 
   --background-color-primary: hsl(0, 0%, 7.06%);
   --background-color-secondary: hsl(0, 0%, 15.69%);
-  --accent-color-primary: hsl(168.24, 83.61%, 23.92%);
-  --acenet-color-secondary: hsl(164.06, 28.83%, 43.53%);
-  --accent-color-tertiary: hsl(163.02, 21.46%, 51.57%);
+  --foreground-color-primary: hsl(168.24, 83.61%, 23.92%);
+  --foreground-color-secondary: hsl(164.06, 28.83%, 43.53%);
+  --foreground-color-tertiary: hsl(163.02, 21.46%, 51.57%);
+  --foreground-color-small-text: hsl(162.27, 21.36%, 59.61%);
   --white-color: hsl(0, 0%, 100%);
+}
+
+/* === BASE STYLES === */
+
+body {
+  font-size: 21px;
+
+  & .container {
+    width: 80%;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+}
+
+/* === SITE HEADER === */
+
+.site-header {
+  background: var(--background-color-secondary);
+  color: var(--foreground-color-secondary);
+  padding: 1em;
+}
+
+.site-header__title {
+  text-transform: uppercase;
+  font-family: "Alpha Echo", var(--system-ui);
+  letter-spacing: 0.15em;
+  font-size: clamp(var(--font-size-xl), 3.5vw, var(--font-size-3xl));
+}
+
+/* === SITE FOOTER === */
+
+.site-footer {
+  background: var(--background-color-secondary);
+  color: var(--foreground-color-small-text);
+  padding: 0.5em;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.site-footer__content {
+  font-family: "Tillana", var(--system-ui);
+  font-weight: 600;
+  font-size: clamp(var(--font-size-m), 3vw, var(--font-size-l));
+  text-align: center;
+}
+
+/* === MEDIA QUERIES === */
+
+@media (width > 62.5em) {
+  .site-header__title {
+    text-align: center;
+  }
 }
