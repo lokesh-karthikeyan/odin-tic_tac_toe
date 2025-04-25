@@ -28,3 +28,22 @@ const Placement = (function () {
 
   return { isValid };
 })();
+
+// Publish/Subscribe pattern during board updates.
+
+const PubSub = (function () {
+  let events = {};
+
+  const publish = (event, data) => {
+    if (events[event]) {
+      events[event].forEach((callback) => callback(data));
+    }
+  };
+
+  const subscribe = (event, callback) => {
+    if (!events[event]) events[event] = [];
+    events[event].push(callback);
+  };
+
+  return { publish, subscribe };
+})();
