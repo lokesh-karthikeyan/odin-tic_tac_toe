@@ -15,13 +15,22 @@ const GameBoard = (function () {
 
 // Player Factory for creating players with the player name & player marker.
 
-const player = (name, marker) => ({
-  name,
-  marker,
-  changeName(newName) {
-    this.name = newName;
-  },
-});
+const player = (name, marker) => {
+  let score = 0;
+  const getScore = () => score;
+  const giveScore = () => score++;
+  const changeName = (newName) => (name = newName);
+
+  return {
+    get name() {
+      return name;
+    },
+    marker,
+    getScore,
+    giveScore,
+    changeName,
+  };
+};
 
 // Publish/Subscribe pattern during board updates.
 
