@@ -7,7 +7,7 @@ const GameBoard = (function () {
 
   const updateBoard = (index, marker) => {
     board[index] = marker;
-    PubSub.publish("boardUpdated", { index, marker });
+    PubSub.publish("boardUpdated", { index, marker, board });
   };
 
   return { getBoard, updateBoard };
@@ -87,19 +87,22 @@ const isTied = (board) =>
 // Game Over logic, checks if the game has a winner (or) it's a tie.
 
 const GameStatus = (function () {
-  const isGameOver = (board, marker) => {
+  let currentState = null;
+
+  const updateGameState = (board, marker) => {
     let roundWon = hasWinner(board);
     let roundTied = !roundWon && isTied(board);
 
-    if (roundWon) return marker;
-    if (roundTied) return "";
-
-    return false;
+    if (roundWon) return (currentState = marker);
+    if (roundTied) return (currentState = "");
+    return (currentState = null);
   };
 
   PubSub.subscribe("boardUpdated", ({ board, marker }) =>
-    isGameOver(board, marker),
+    updateGameState(board, marker),
   );
 
-  return { isGameOver };
+  const getCurrentState = () => currentState;
+
+  return { getCurrentState };
 })();
