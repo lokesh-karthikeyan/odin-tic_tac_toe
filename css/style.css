@@ -1,0 +1,72 @@
+/* === DEFAULT STYLES === */
+
+@import "normalize.css";
+
+/* === CUSTOM WEB FONTS === */
+
+@font-face {
+  font-family: "Alpha Echo";
+  src:
+    url("../fonts/AlphaEcho.woff2") format("woff2"),
+    url("../fonts/AlphaEcho.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Tillana";
+  src:
+    url("../fonts/Tillana-Regular.woff2") format("woff2"),
+    url("../fonts/Tillana-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Tillana";
+  src:
+    url("../fonts/Tillana-Medium.woff2") format("woff2"),
+    url("../fonts/Tillana-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Tillana";
+  src:
+    url("../fonts/Tillana-SemiBold.woff2") format("woff2"),
+    url("../fonts/Tillana-SemiBold.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Finger Paint";
+  src:
+    url("../fonts/FingerPaint-Regular.woff2") format("woff2"),
+    url("../fonts/FingerPaint-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* GLOBAL VARIABLES */
+
+:root {
+  --system-ui:
+    system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+  --font-size-s: 0.875rem;
+  --font-size-m: 1rem;
+  --font-size-l: 1.125rem;
+  --font-size-xl: 1.3125rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 2.652rem;
+
+  --background-color-primary: hsl(0, 0%, 7.06%);
+  --background-color-secondary: hsl(0, 0%, 15.69%);
+  --accent-color-primary: hsl(168.24, 83.61%, 23.92%);
+  --acenet-color-secondary: hsl(164.06, 28.83%, 43.53%);
+  --accent-color-tertiary: hsl(163.02, 21.46%, 51.57%);
+  --white-color: hsl(0, 0%, 100%);
+}
