@@ -3,9 +3,7 @@
 const GameBoard = (function () {
   let board = new Array(9).fill("");
 
-  const getBoard = () => {
-    return board;
-  };
+  const getBoard = () => board;
 
   const updateBoard = (index, marker) => {
     board[index] = marker;
@@ -16,26 +14,17 @@ const GameBoard = (function () {
 
 // Player Factory for creating players with the player name & player marker.
 
-const Player = (name, marker) => {
-  return { name, marker };
-};
+const Player = (name, marker) => ({ name, marker });
 
 // Placement logic of the current marker, and index.
 
 const Placement = (function () {
   let previousMarker = "";
 
-  const isValidIndex = (board, index) => {
-    return board[index] === "";
-  };
-
-  const isValidMarker = (currentMarker) => {
-    return currentMarker !== previousMarker;
-  };
-
-  const isValid = (index, marker, board) => {
-    return isValidIndex(board, index) && isValidMarker(marker);
-  };
+  const isValidIndex = (board, index) => board[index] === "";
+  const isValidMarker = (currentMarker) => currentMarker !== previousMarker;
+  const isValid = (index, marker, board) =>
+    isValidIndex(board, index) && isValidMarker(marker);
 
   return { isValid };
 })();
