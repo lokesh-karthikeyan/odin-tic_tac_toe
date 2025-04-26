@@ -148,3 +148,32 @@ const playerManager = () => {
 
   return { createPlayer, getCurrentPlayer, switchPlayers, getWinnerPlayer };
 };
+
+// Create and set Player Names & Score.
+
+const updatePlayerDetails = (function () {
+  let [firstPlayerContainer, secondPlayerContainer] = document.querySelectorAll(
+    ".main-content__player",
+  );
+  let playerInstance = playerManager();
+  let playerOne = playerInstance.createPlayer("Player - 1", "X");
+  let playerTwo = playerInstance.createPlayer("Player - 2", "O");
+
+  let playerOneNameContainer = firstPlayerContainer.querySelector(
+    ".main-content__player-name",
+  );
+  let playerTwoNameContainer = secondPlayerContainer.querySelector(
+    ".main-content__player-name",
+  );
+  let playerOneScoreContainer = firstPlayerContainer.querySelector(
+    ".main-content__player-score",
+  );
+  let playerTwoScoreContainer = secondPlayerContainer.querySelector(
+    ".main-content__player-score",
+  );
+
+  playerOneNameContainer.textContent = playerOne.name;
+  playerTwoNameContainer.textContent = playerTwo.name;
+  playerOneScoreContainer.textContent = playerOne.getScore();
+  playerTwoScoreContainer.textContent = playerTwo.getScore();
+})();
