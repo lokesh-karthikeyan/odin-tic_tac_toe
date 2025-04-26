@@ -70,6 +70,7 @@
   --foreground-color-tertiary: hsl(163.02, 21.46%, 51.57%);
   --foreground-color-small-text: hsl(162.27, 21.36%, 59.61%);
   --white-color: hsl(0, 0%, 100%);
+  --red-color: hsl(8.3, 100%, 81.57%);
 }
 
 /* === BASE STYLES === */
@@ -92,11 +93,17 @@ body {
     border: none;
     transition:
       background 0.4s ease,
-      opacity 0.4s ease;
+      opacity 0.4s ease,
+      color 0.4s ease;
   }
 
   & .button:hover {
-    background: hsl(0, 0%, 30%);
+    background: var(--foreground-color-small-text);
+  }
+
+  & .button.unavailable:hover {
+    background: var(--red-color);
+    color: var(--background-color-primary);
   }
 
   & a {
