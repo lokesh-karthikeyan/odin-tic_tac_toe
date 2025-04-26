@@ -102,19 +102,25 @@ const isTied = (board) =>
 // Game Over logic, checks if the game has a winner (or) it's a tie.
 
 const GameStatus = (function () {
+  let gameState = null;
+
   const updateGameState = (board, marker) => {
     let roundWon = hasWinner(board);
     let roundTied = !roundWon && isTied(board);
 
-    if (roundWon) return PubSub.publish("gameOver", marker);
-    if (roundTied) return PubSub.publish("gameOver", "");
+    if (roundWon) return (gameState = marker);
+    if (roundTied) return (gameState = "");
+
+    return (gameState = null);
   };
+
+  const getGameState = () => gameState;
 
   PubSub.subscribe("boardUpdated", ({ board, marker }) =>
     updateGameState(board, marker),
   );
 
-  return {};
+  return { getGameState };
 })();
 
 // Player Manager which wraps all player related methods.
