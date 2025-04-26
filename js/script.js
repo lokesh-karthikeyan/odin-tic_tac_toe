@@ -119,7 +119,7 @@ const GameStatus = (function () {
 
 // Player Manager which wraps all player related methods.
 
-const playerManager = () => {
+const playerManager = (function () {
   const players = [];
   let currentPlayer = null;
   let winnerPlayer = null;
@@ -146,8 +146,19 @@ const playerManager = () => {
       : "";
   });
 
-  return { createPlayer, getCurrentPlayer, switchPlayers, getWinnerPlayer };
-};
+  const getFirstPlayer = () => players[0];
+
+  const getSecondPlayer = () => players[1];
+
+  return {
+    createPlayer,
+    getCurrentPlayer,
+    switchPlayers,
+    getWinnerPlayer,
+    getFirstPlayer,
+    getSecondPlayer,
+  };
+})();
 
 // Create and set Player Names & Score.
 
@@ -155,7 +166,7 @@ const updatePlayerDetails = (function () {
   let [firstPlayerContainer, secondPlayerContainer] = document.querySelectorAll(
     ".main-content__player",
   );
-  let playerInstance = playerManager();
+  let playerInstance = playerManager;
   let playerOne = playerInstance.createPlayer("Player - 1", "X");
   let playerTwo = playerInstance.createPlayer("Player - 2", "O");
 
