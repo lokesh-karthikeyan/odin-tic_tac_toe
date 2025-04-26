@@ -108,7 +108,10 @@ const GameStatus = (function () {
     let roundWon = hasWinner(board);
     let roundTied = !roundWon && isTied(board);
 
-    if (roundWon) return (gameState = marker);
+    if (roundWon) {
+      PubSub.publish("gameOver", marker);
+      return (gameState = marker);
+    }
     if (roundTied) return (gameState = "");
 
     return (gameState = null);
@@ -295,21 +298,33 @@ const playGame = (position) => {
   const gameInstance = GameBoard;
   const board = gameInstance.getBoard();
   const gameStatus = GameStatus;
-  let currentState = gameStatus.getGameState();
   let currentPlayer = playerManager.getCurrentPlayer();
 
-  if (currentState === null) {
-    let isValidPlacement = Placement.isValid(
-      position,
-      currentPlayer.marker,
-      board,
-    );
+  let isValidPlacement = Placement.isValid(
+    position,
+    currentPlayer.marker,
+    board,
+  );
 
-    if (!isValidPlacement) return;
+  if (!isValidPlacement) return;
 
-    gameInstance.updateBoard(position, currentPlayer.marker);
-    playerManager.switchPlayers();
+  gameInstance.updateBoard(position, currentPlayer.marker);
+  playerManager.switchPlayers();
+
+  let currentState = gameStatus.getGameState();
+
+  if (currentState === null) return;
+
+  let dialogBox = document.querySelector(".modal");
+  let modalBody = dialogBox.querySelector(".modal__content");
+
+  if (currentState === "") {
+    modalBody.textContent = "It's a Tie!!!";
+  } else {
+    let winner = playerManager.getWinnerPlayer();
+    modalBody.textContent = `${winner.marker} -> ( ${winner.name} wins!!! )`;
   }
+  dialogBox.showModal();
 };
 
 // Update Game Board
@@ -325,3 +340,5 @@ const updateBoard = () => {
     if (tile.textContent !== "") tile.classList.add("unavailable");
   });
 };
+
+// Close Modal / Reset Game
