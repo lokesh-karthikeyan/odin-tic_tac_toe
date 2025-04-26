@@ -188,3 +188,84 @@ const updatePlayerDetails = (function () {
   playerOneScoreContainer.textContent = playerOne.getScore();
   playerTwoScoreContainer.textContent = playerTwo.getScore();
 })();
+
+// Edit player name Event
+
+const editPlayerName = (function () {
+  const playerDetailsContainer = document.querySelector(
+    ".main-content__score-container",
+  );
+
+  playerDetailsContainer.addEventListener("click", (event) => {
+    if (event.target.tagName !== "A") return;
+
+    const playerNameContainer = event.target.closest(
+      ".main-content__player-name-container",
+    );
+    let playerName = playerNameContainer.querySelector(
+      ".main-content__player-name",
+    );
+    let playerInput = playerNameContainer.querySelector("input");
+
+    toggleClass(playerName, "is-inactive");
+    toggleClass(playerInput, "is-inactive");
+    toggleClass(playerInput, "is-active");
+
+    playerInput.value = playerName.textContent.trim();
+    playerInput.focus();
+  });
+})();
+
+// Out of focus on Input element.
+
+const outOfFocusEvent = (function () {
+  const inputElements = document.querySelectorAll("input");
+  let isProcessing = false;
+
+  inputElements.forEach((inputElement) => {
+    inputElement.addEventListener("blur", (event) => {
+      if (isProcessing) return;
+      exitInputEvent(event.target);
+    });
+
+    inputElement.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        isProcessing = true;
+        exitInputEvent(event.target);
+        setTimeout(() => (isProcessing = false), 100);
+      }
+    });
+  });
+
+  const exitInputEvent = (currentInputElement) => {
+    let playerNameElement = currentInputElement
+      .closest(".main-content__player-name-container")
+      .querySelector(".main-content__player-name");
+
+    changePlayerName(playerNameElement, currentInputElement);
+
+    toggleClass(playerNameElement, "is-inactive");
+    toggleClass(currentInputElement, "is-inactive");
+    toggleClass(currentInputElement, "is-active");
+  };
+})();
+
+// Toggle Classes
+
+const toggleClass = (element, htmlClassName) =>
+  element.classList.toggle(htmlClassName);
+
+// Change Player Names.
+
+const changePlayerName = (playerNameElement, currentInputElement) => {
+  let newName = currentInputElement.value;
+  let playerId = playerNameElement.dataset.player;
+  let playerInstance = playerManager;
+  let player;
+
+  player = playerId.includes("1")
+    ? playerInstance.getFirstPlayer()
+    : playerInstance.getSecondPlayer();
+  player.changeName(newName);
+  playerNameElement.textContent = newName;
+};
