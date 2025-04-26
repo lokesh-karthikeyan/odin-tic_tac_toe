@@ -275,3 +275,53 @@ const changePlayerName = (playerNameElement, currentInputElement) => {
   player.changeName(newName);
   playerNameElement.textContent = newName;
 };
+
+// Event for Game Play.
+
+const selectTile = (function () {
+  let gameTiles = document.querySelector(".main-content__buttons");
+
+  gameTiles.addEventListener("click", (event) => {
+    let position = event.target.dataset.index;
+
+    playGame(position);
+    updateBoard();
+  });
+})();
+
+// Game Play logic.
+
+const playGame = (position) => {
+  const gameInstance = GameBoard;
+  const board = gameInstance.getBoard();
+  const gameStatus = GameStatus;
+  let currentState = gameStatus.getGameState();
+  let currentPlayer = playerManager.getCurrentPlayer();
+
+  if (currentState === null) {
+    let isValidPlacement = Placement.isValid(
+      position,
+      currentPlayer.marker,
+      board,
+    );
+
+    if (!isValidPlacement) return;
+
+    gameInstance.updateBoard(position, currentPlayer.marker);
+    playerManager.switchPlayers();
+  }
+};
+
+// Update Game Board
+
+const updateBoard = () => {
+  const gameInstance = GameBoard;
+  const board = gameInstance.getBoard();
+
+  board.forEach((item, index) => {
+    let dataAttribute = `[data-index="${index}"]`;
+    let tile = document.querySelector(dataAttribute);
+    tile.textContent = item;
+    if (tile.textContent !== "") tile.classList.add("unavailable");
+  });
+};
