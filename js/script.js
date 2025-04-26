@@ -346,6 +346,7 @@ const playGame = (position) => {
   } else {
     let winner = playerManager.getWinnerPlayer();
     modalBody.textContent = `${winner.marker} -> ( ${winner.name} wins!!! )`;
+    winner.giveScore();
   }
   dialogBox.showModal();
 };
@@ -365,6 +366,18 @@ const updateBoard = () => {
   });
 };
 
+// Update Score Board
+
+const updateScoreBoard = () => {
+  let playerOneScore = document.querySelector('[data-score="player-1"]');
+  let playerTwoScore = document.querySelector('[data-score="player-2"]');
+  let playerOne = playerManager.getFirstPlayer();
+  let playerTwo = playerManager.getSecondPlayer();
+
+  playerOneScore.textContent = playerOne.getScore();
+  playerTwoScore.textContent = playerTwo.getScore();
+};
+
 // Close Modal / Reset Game
 
 const resetGame = (function () {
@@ -376,5 +389,18 @@ const resetGame = (function () {
     updateBoard();
     playerManager.resetCurrentAndWinnerPlayer();
     modal.close();
+
+    let playerScores = document.querySelectorAll(".main-content__player-score");
+
+    setTimeout(() => {
+      for (let playerScore of playerScores) {
+        playerScore.classList.toggle("changed");
+      }
+      updateScoreBoard();
+    }, 500);
+
+    for (let playerScore of playerScores) {
+      playerScore.classList.toggle("changed");
+    }
   });
 })();
