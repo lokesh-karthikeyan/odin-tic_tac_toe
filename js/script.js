@@ -7,10 +7,16 @@ const GameBoard = (function () {
 
   const updateBoard = (index, marker) => {
     board[index] = marker;
-    PubSub.publish("boardUpdated", { index, marker, board });
+    PubSub.publish("boardUpdated", { marker, board });
   };
 
-  return { getBoard, updateBoard };
+  const resetBoard = () => {
+    let marker = "";
+    board = new Array(9).fill("");
+    PubSub.publish("boardUpdated", { marker, board });
+  };
+
+  return { getBoard, updateBoard, resetBoard };
 })();
 
 // Player Factory for creating players with the player name & player marker.
@@ -159,6 +165,13 @@ const playerManager = (function () {
 
   const getSecondPlayer = () => players[1];
 
+  const resetCurrentAndWinnerPlayer = () => {
+    currentPlayer = getFirstPlayer();
+    winnerPlayer = null;
+  };
+
+  const hasPlayers = () => players.length > 0;
+
   return {
     createPlayer,
     getCurrentPlayer,
@@ -166,6 +179,8 @@ const playerManager = (function () {
     getWinnerPlayer,
     getFirstPlayer,
     getSecondPlayer,
+    resetCurrentAndWinnerPlayer,
+    hasPlayers,
   };
 })();
 
@@ -176,8 +191,16 @@ const updatePlayerDetails = (function () {
     ".main-content__player",
   );
   let playerInstance = playerManager;
-  let playerOne = playerInstance.createPlayer("Player - 1", "X");
-  let playerTwo = playerInstance.createPlayer("Player - 2", "O");
+  let playerOne = null;
+  let playerTwo = null;
+
+  if (playerInstance.hasPlayers()) {
+    playerOne = playerInstance.getFirstPlayer();
+    playerTwo = playerInstance.getSecondPlayer();
+  } else {
+    playerOne = playerInstance.createPlayer("Player - 1", "X");
+    playerTwo = playerInstance.createPlayer("Player - 2", "O");
+  }
 
   let playerOneNameContainer = firstPlayerContainer.querySelector(
     ".main-content__player-name",
