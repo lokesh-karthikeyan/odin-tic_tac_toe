@@ -185,6 +185,11 @@ body {
       padding: 1em 1.5em;
       background: var(--background-color-primary);
       border-radius: 0.5em;
+      transition: transform 0.7s ease;
+    }
+
+    & .main-content__player-score.changed {
+      transform: scale(0);
     }
   }
 
