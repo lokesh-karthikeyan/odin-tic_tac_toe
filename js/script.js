@@ -361,7 +361,20 @@ const updateBoard = () => {
     let tile = document.querySelector(dataAttribute);
     tile.textContent = item;
     if (tile.textContent !== "") tile.classList.add("unavailable");
+    if (tile.textContent === "") tile.classList.remove("unavailable");
   });
 };
 
 // Close Modal / Reset Game
+
+const resetGame = (function () {
+  let modal = document.querySelector(".modal");
+  let resetButton = document.querySelector(".play-again");
+
+  resetButton.addEventListener("click", () => {
+    GameBoard.resetBoard();
+    updateBoard();
+    playerManager.resetCurrentAndWinnerPlayer();
+    modal.close();
+  });
+})();
