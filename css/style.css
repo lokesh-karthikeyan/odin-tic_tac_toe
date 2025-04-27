@@ -121,7 +121,7 @@ body {
 .site-header {
   background: var(--background-color-secondary);
   color: var(--foreground-color-secondary);
-  padding: 1em;
+  padding: 0.3em;
 }
 
 .site-header__title {
@@ -153,8 +153,8 @@ body {
     justify-content: center;
     align-items: center;
     background: var(--foreground-color-primary);
+    margin-top: 1em;
     padding: 0.4em 0.8em;
-    margin: 1em 0;
     border-radius: 0.5em;
   }
 
@@ -236,6 +236,25 @@ body {
     background: var(--background-color-secondary);
     color: var(--white-color);
   }
+}
+
+.main-content__current-player-indicator {
+  margin: 1em 0;
+  transition: transform 0.5s ease;
+
+  & .main-content__current-player-name {
+    text-align: center;
+    color: var(--white-color);
+    font-family: "Tillana", var(--system-ui);
+  }
+  & .main-content__current-player-name.changed {
+    transform: scale(0);
+  }
+}
+
+.main-content__player.current {
+  border: 3px solid var(--red-color);
+  transition: border 0.3s ease-in-out;
 }
 
 /* === DIALOG / MODAL === */
