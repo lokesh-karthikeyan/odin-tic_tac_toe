@@ -198,10 +198,10 @@ const showCurrentPlayer = () => {
   const currentPlayer = playerManager.getCurrentPlayer();
 
   if (currentPlayer === firstPlayer) {
-    playerOne.classList.toggle("current");
+    playerOne.classList.add("current");
     playerTwo.classList.remove("current");
   } else if (currentPlayer === secondPlayer) {
-    playerTwo.classList.toggle("current");
+    playerTwo.classList.add("current");
     playerOne.classList.remove("current");
   }
 
@@ -342,7 +342,6 @@ const selectTile = (function () {
 
     playGame(position);
     updateBoard();
-    showCurrentPlayer();
   });
 })();
 
@@ -364,6 +363,7 @@ const playGame = (position) => {
 
   gameInstance.updateBoard(position, currentPlayer.marker);
   playerManager.switchPlayers();
+  showCurrentPlayer();
 
   let currentState = gameStatus.getGameState();
 
@@ -419,6 +419,7 @@ const resetGame = (function () {
     GameBoard.resetBoard();
     updateBoard();
     playerManager.resetCurrentAndWinnerPlayer();
+    showCurrentPlayer();
     modal.close();
 
     let playerScores = document.querySelectorAll(".main-content__player-score");
@@ -433,6 +434,5 @@ const resetGame = (function () {
     for (let playerScore of playerScores) {
       playerScore.classList.toggle("changed");
     }
-    showCurrentPlayer();
   });
 })();
