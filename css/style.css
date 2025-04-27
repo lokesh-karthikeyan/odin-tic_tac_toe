@@ -156,6 +156,12 @@ body {
     margin-top: 1em;
     padding: 0.4em 0.8em;
     border-radius: 0.5em;
+    border: solid 3px var(--background-color-secondary);
+  }
+
+  & .main-content__player.current {
+    border: 3px solid var(--red-color);
+    transition: border 0.3s ease-in-out;
   }
 
   & .main-content__marker-container {
@@ -250,11 +256,6 @@ body {
   & .main-content__current-player-name.changed {
     transform: scale(0);
   }
-}
-
-.main-content__player.current {
-  border: 3px solid var(--red-color);
-  transition: border 0.3s ease-in-out;
 }
 
 /* === DIALOG / MODAL === */
