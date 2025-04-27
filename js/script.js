@@ -184,6 +184,35 @@ const playerManager = (function () {
   };
 })();
 
+// Current Player Indicator.
+
+const showCurrentPlayer = () => {
+  const currentPlayerName = document.querySelector(
+    ".main-content__current-player-name",
+  );
+  const playerOne = document.querySelector('[data-player="1"]');
+  const playerTwo = document.querySelector('[data-player="2"]');
+
+  const firstPlayer = playerManager.getFirstPlayer();
+  const secondPlayer = playerManager.getSecondPlayer();
+  const currentPlayer = playerManager.getCurrentPlayer();
+
+  if (currentPlayer === firstPlayer) {
+    playerOne.classList.toggle("current");
+    playerTwo.classList.remove("current");
+  } else if (currentPlayer === secondPlayer) {
+    playerTwo.classList.toggle("current");
+    playerOne.classList.remove("current");
+  }
+
+  currentPlayerName.textContent = `${currentPlayer.marker}: ${currentPlayer.name}'s turn`;
+  currentPlayerName.classList.toggle("changed");
+
+  setTimeout(() => {
+    currentPlayerName.classList.toggle("changed");
+  }, 100);
+};
+
 // Create and set Player Names & Score.
 
 const updatePlayerDetails = (function () {
@@ -219,6 +248,7 @@ const updatePlayerDetails = (function () {
   playerTwoNameContainer.textContent = playerTwo.name;
   playerOneScoreContainer.textContent = playerOne.getScore();
   playerTwoScoreContainer.textContent = playerTwo.getScore();
+  showCurrentPlayer();
 })();
 
 // Edit player name Event
@@ -312,6 +342,7 @@ const selectTile = (function () {
 
     playGame(position);
     updateBoard();
+    showCurrentPlayer();
   });
 })();
 
@@ -402,5 +433,6 @@ const resetGame = (function () {
     for (let playerScore of playerScores) {
       playerScore.classList.toggle("changed");
     }
+    showCurrentPlayer();
   });
 })();
