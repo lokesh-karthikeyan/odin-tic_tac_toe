@@ -415,6 +415,10 @@ const resetGame = (function () {
   let modal = document.querySelector(".modal");
   let resetButton = document.querySelector(".play-again");
 
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && modal.open) event.preventDefault();
+  });
+
   resetButton.addEventListener("click", () => {
     GameBoard.resetBoard();
     updateBoard();
